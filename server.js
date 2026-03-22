@@ -15,10 +15,13 @@ const { setServers } = require("dns");   //   ---added
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve frontend
 app.use(express.static(path.join(__dirname, "public")));
-// API routes
+
 app.use("/api/users", usersRouter);
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 // Test route
 app.get("/api/health", (req, res) => res.json({ status: "ok" }));
